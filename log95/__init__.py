@@ -1,12 +1,12 @@
 __lib__: str = "log95"
-__version__: float = 1.0
+__version__: float = 1.1
 
 from enum import Enum
 from types import ModuleType
 import datetime
 
 try:
-    import colorama
+    import colorama # type: ignore
 except ModuleNotFoundError:
     print("log95: colorama is not installed.")
 
@@ -60,7 +60,7 @@ class log95:
                         return f"WARN"
                     case log95Levels.INFO:
                         return f"INFO"
-        print(f"[{self.tag}] ({level_to_str(level, we_have_color)}) @ ({datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S.%f")}) - {out}")
+        print(f"[{self.tag}] ({level_to_str(level, we_have_color)}) @ ({datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S.%f')}) - {out}")
     def debug(self, *args:str, seperator=" "):
         self.log(log95Levels.DEBUG, *args, seperator)
     def verbose(self, *args:str, seperator=" "):

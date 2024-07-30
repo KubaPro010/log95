@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
         name="log95",
-        version="1.0",
+        version="1.1",
         author="kuba201",
         description='Simple logger',
         long_description=readme,
