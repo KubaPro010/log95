@@ -1,9 +1,10 @@
 __lib__: str = "log95"
-__version__: float = 1.1
+__version__: float = 1.2
 
 from enum import Enum
 from types import ModuleType
 import datetime
+from typing import LiteralString
 
 try:
     import colorama # type: ignore
@@ -22,7 +23,7 @@ class log95:
     def __init__(self, tag:str="...", level=log95Levels.CRITICAL_ERROR) -> None:
         self.tag = str(tag)
         self.level = int(level.value)
-    def log(self, level: log95Levels, *args:str, seperator=" "):
+    def log(self, level: log95Levels, *args:str, seperator=" ") -> None:
         if level.value < self.level:
             return
         out = seperator.join(args)
@@ -31,7 +32,7 @@ class log95:
             if k == "colorama" and isinstance(v,ModuleType):
                 we_have_color = True
                 break
-        def level_to_str(_level: log95Levels, _color: bool):
+        def level_to_str(_level: log95Levels, _color: bool) -> LiteralString | str:
             match _level:
                 # the same if theres color and when theres not
                     case log95Levels.DEBUG:
@@ -61,15 +62,15 @@ class log95:
                     case log95Levels.INFO:
                         return f"INFO"
         print(f"[{self.tag}] ({level_to_str(level, we_have_color)}) @ ({datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S.%f')}) - {out}")
-    def debug(self, *args:str, seperator=" "):
+    def debug(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.DEBUG, *args, seperator)
-    def verbose(self, *args:str, seperator=" "):
+    def verbose(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.VERBOSE, *args, seperator)
-    def critical_error(self, *args:str, seperator=" "):
+    def critical_error(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.CRITICAL_ERROR, *args, seperator)
-    def error(self, *args:str, seperator=" "):
+    def error(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.ERROR, *args, seperator)
-    def warning(self, *args:str, seperator=" "):
+    def warning(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.WARN, *args, seperator)
-    def info(self, *args:str, seperator=" "):
+    def info(self, *args:str, seperator=" ") -> None:
         self.log(log95Levels.INFO, *args, seperator)
